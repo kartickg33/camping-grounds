@@ -1,73 +1,8 @@
-<% layout('layouts/boilerplate') %>
+<<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/stars.css">
 
-<!-- CSS code for range sliders -->
 
-<style>
-  input[type=range] {
-  -webkit-appearance: none;
-  margin: 20px 0;
-  width: 100%;
-}
-input[type=range]:focus {
-  outline: none;
-}
-input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 3px;
-  cursor: pointer;
-  /*animate: 0.2s; */
-  background: #03a9f4;
-  border-radius: 25px;
-}
-input[type=range]::-webkit-slider-thumb {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 4px 0 rgba(0,0,0, 1);
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -8px; 
-}
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #03a9f4;
-}
-.range-wrap{
-  width: 500px;
-  position: relative;
-}
-.range-value{
-  position:absolute;
-  top: 20%;
-}
-.range-value span{
-  width: 30px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  background: #03a9f4;
-  color: #fff;
-  font-size: 12px;
-  display: block;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  border-radius: 6px;
-}
-.range-value span:before{
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 10px solid #03a9f4;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  margin-top: -1px;
-}
-</style>
+
 <div class="row">
   <div class="col-6">
     <div class="card mb-3">
@@ -100,14 +35,22 @@ input[type=range]:focus::-webkit-slider-runnable-track {
         <h2>Leave a Review</h2>
             <form action="/campgrounds/<%=campground._id %>/reviews" method="POST" class="validated-form mb-3" novalidate>
               <div class="mb-3">
-                <div class="range-wrap">
-                  <div class="range-value" id="rangeV"></div>
-                  <label class="form-label" for="range">Rating</label>
-                <input class="form-control" type="range" min="1" max="5" name="review[rating]" id="range">
-                </div>
-              </div>
+              <fieldset class="starability-basic">
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+            </div>
               <div class="mb-3">
-                <label class="form-label" for="body">Review</label>
+                <label class="form-label" for="body">Review Text</label>
                 <textarea class="form-control" name="review[body]" id="body" cols="30" rows="5" required></textarea>
                 <div class="valid-feedback">Spot On !</div>
                       <div class="invalid-feedback">Please enter Campground Review</div>
@@ -118,7 +61,10 @@ input[type=range]:focus::-webkit-slider-runnable-track {
             <% for(let rev of campground.reviews){ %>
                 <div class=" card mb-3"> 
                   <div class="card-body">
-                    <h5 class="card-title">Rating: <%=rev.rating%> </h5>
+                    <h5 class="card-title"><%=rev.author.username%> </h5>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= rev.author.username%> </h6> -->
+                    <p class="starability-result" data-rating="<%=rev.rating%>"> 
+                    </p>
                     <p class="card-text">Review: <%=rev.body%> </p>
                     <form action="/campgrounds/<%= campground._id %>/reviews/<%= rev._id %>?_method=DELETE" method="POST">
                       <button class="btn btn-sm btn-danger">Delete</button>
@@ -129,17 +75,4 @@ input[type=range]:focus::-webkit-slider-runnable-track {
       </div>
 </div>
 
-<!--  JS code for range sliders-->
 
-<script>
-    const range = document.getElementById('range');
-    const rangeV = document.getElementById('rangeV');
-    const setValue = ()=>{
-      const newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) );
-      const newPosition = 10 - (newValue * 0.2);
-      rangeV.innerHTML = `<span>${range.value}</span>`;
-      rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
-    };
-  document.addEventListener("DOMContentLoaded", setValue);
-  range.addEventListener('input', setValue);
-</script>
