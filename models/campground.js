@@ -2,15 +2,19 @@ const mongoose = require('mongoose');
 const review = require('./review');
 const Schema = mongoose.Schema;
 
+const ImageSchema = new Schema({
+        url: String,
+        filename:String
+});
+
+ImageSchema.virtual('thumbnail').get(function (){
+    return this.url.replace('/upload','/upload/w_200')
+});// this basically creates a virtual thumbnail(200 px) for the images being displayed in the edit page to make the page look clean....through cloudinary
+//the images will not be stored in the db for edit page, they will be shown virtually through the url
 
 const CampgroundSchema = new Schema({
     title: String,
-    images: [
-        {
-            url: String,
-            filename:String
-        }
-    ],
+    images: [ImageSchema],
     price: Number,
     description: String,
     location: String,
