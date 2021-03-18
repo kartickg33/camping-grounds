@@ -10,7 +10,11 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-require("dotenv").config();
+if(process.env.NODE_ENV!=="production"){
+    require("dotenv").config();
+}
+    
+
 const uri = process.env.MONGODB_URI;
 
 const userRoutes = require('./routes/users');
