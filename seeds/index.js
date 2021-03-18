@@ -28,7 +28,18 @@ const seedDB = async ()=>{
             author:'605219910ff8ce54b816213c',
             location:`${cities[random1000].city},${cities[random1000].state}`,
             title:`${sample(descriptors)} ${sample(places)}`,
-            image:'https://source.unsplash.com/collection/190727',
+            images:[
+                {
+                  
+                  url: 'https://res.cloudinary.com/diyscwbit/image/upload/v1616073543/Camping-Grounds/behhnatqgsz8ipxuagsw.jpg',
+                  filename: 'Camping-Grounds/behhnatqgsz8ipxuagsw'
+                },
+                {
+                
+                    url: 'https://res.cloudinary.com/diyscwbit/image/upload/v1616073542/Camping-Grounds/kt6dn8qzkrjofaklmfdg.jpg',
+                    filename: 'Camping-Grounds/kt6dn8qzkrjofaklmfdg'
+                  }
+              ],
             description:'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta atque earum blanditiis, similique odit nobis magni? Quia adipisci voluptatum, eum incidunt quae consequuntur. Quo tenetur totam beatae laborum aliquid. Illum.',
             price
         })
