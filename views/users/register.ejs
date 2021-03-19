@@ -1,5 +1,40 @@
 <% layout('layouts/boilerplate') %> 
-<h1>Register</h1>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img src = "https://images.unsplash.com/photo-1517824806704-9040b037703b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Y2FtcGluZ3xlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=900&q=60" alt="" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Register</h5>
+                    <form action="/register" method="POST" class="validated-form" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username" autofocus required>
+                            <div class="valid-feedback">Spot On !</div>
+                            <div class="invalid-feedback">Please enter Username</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" required>
+                            <div class="valid-feedback">Spot On !</div>
+                            <div class="invalid-feedback">Please enter valid E-mail</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                            <div class="valid-feedback">Spot On !</div>
+                            <div class="invalid-feedback">Please enter Password</div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary">Register</button>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <h1>Register</h1>
 <form action="/register" method="POST" class="validated-form" novalidate>
     <div class="mb-3">
         <label class="form-label" for="username">Username</label>
@@ -20,4 +55,4 @@
         <div class="invalid-feedback">Please enter Password</div>
     </div>
     <button class="btn btn-success">Register</button>
-</form>
+</form> -->

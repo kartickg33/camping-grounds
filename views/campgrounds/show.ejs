@@ -1,5 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/stars.css">
+<link rel="stylesheet" href="/stylesheets/mp.css">
 
 <div class="row">
   <div class="col-6">
@@ -12,14 +13,14 @@
         <% })%> 
       </div>
       <% if(campground.images.length > 1) {%> 
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+      <a role="button" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+      </a>
+      <a role="button" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-      </button>
+      </a>
       <% }%> 
     </div>
     <div class="card mb-3">
@@ -47,7 +48,8 @@
       </div>
       </div>
       <div class="col-6">
-        <div id='map' style='width: 400px; height: 300px;'></div>
+        <div id="map"></div>
+        <br>
         <% if(currentUser){ %> 
         <h2>Leave a Review</h2>
             <form action="/campgrounds/<%=campground._id %>/reviews" method="POST" class="validated-form mb-3" novalidate>
@@ -67,8 +69,10 @@
               </fieldset>
             </div>
               <div class="mb-3">
-                <label class="form-label" for="body">Review Text</label>
-                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="5" required></textarea>
+                <label class="form-label" for="body"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" fill="currentColor" class="bi bi-textarea" viewBox="0 0 16 16">
+                  <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                </svg></label>
+                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="5" required>Share your experience...</textarea>
                 <div class="valid-feedback">Spot On !</div>
                       <div class="invalid-feedback">Please enter Campground Review</div>
               </div>
