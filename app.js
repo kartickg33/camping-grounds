@@ -11,6 +11,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const MongoDBStore = require("connect-mongo");
+
 if(process.env.NODE_ENV!=="production"){
     require("dotenv").config();
 }
@@ -46,18 +49,33 @@ app.use(mongoSanitize({
     replaceWith:'_'
 }));
 
+const store = MongoDBStore.create({
+    mongoUrl: uri,
+    secret: 'thisshouldbeabettersecret!',
+    touchAfter: 24*60*60
+});
+
+store.on("error",function(e){
+    console.log("Session Store Error !",e)
+});
+
 const sessionConfig = {
+    store,
+    name:'session',
     secret:'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized:true,
     cookie:{
         httpOnly:true,
+        //secure:true,
         expires: Date.now() + 1000*60*60*24*7,
         maxAge:1000*60*60*24*7
     } 
 }
 app.use(session(sessionConfig))
-app.use(flash())
+app.use(flash());
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
